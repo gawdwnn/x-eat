@@ -4,14 +4,14 @@ import { CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from 'type
 @ObjectType()
 export class CoreEntity {
   @PrimaryGeneratedColumn()
-  @Field((type) => Number)
+  @Field(() => Number)
   id: number;
 
   @CreateDateColumn()
-  @Field((type) => Date)
+  @Field(() => Date)
   createdAt: Date;
 
   @UpdateDateColumn()
-  @Field((type) => Date)
+  @Field(() => Date)
   updatedAt: Date;
 }

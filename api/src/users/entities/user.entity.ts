@@ -18,27 +18,33 @@ registerEnumType(UserRole, { name: 'UserRole' });
 @Entity()
 export class User extends CoreEntity {
   @Column()
-  @Field((type) => String)
+  @Field(() => String)
   @IsEmail()
   email: string;
 
-  @Column()
-  @Field((type) => String)
+  @Column({ select: false })
+  @Field(() => String)
   password: string;
 
   @Column({ type: 'enum', enum: UserRole })
-  @Field((type) => UserRole)
+  @Field(() => UserRole)
   @IsEnum(UserRole)
   role: UserRole;
+
+  @Column({ default: false })
+  @Field(() => Boolean)
+  verified: boolean;
 
   @BeforeInsert()
   @BeforeUpdate()
   async hashPassword() {
-    try {
-      this.password = await bcrypt.hash(this.password, 10);
-    } catch (error) {
-      console.log(error);
-      throw new InternalServerErrorException();
+    if (this.password) {
+      try {
+        this.password = await bcrypt.hash(this.password, 10);
+      } catch (error) {
+        console.log(error);
+        throw new InternalServerErrorException();
+      }
     }
   }
 
