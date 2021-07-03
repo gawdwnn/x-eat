@@ -8,7 +8,7 @@ import { EmailVar, MailModuleOptions } from './mai.interfaces';
 export class MailService {
   constructor(@Inject(CONFIG_OPTIONS) private readonly options: MailModuleOptions) {}
 
-  private async sendEmail(subject: string, template: string, to: string, emailVars: EmailVar[]) {
+  async sendEmail(subject: string, template: string, to: string, emailVars: EmailVar[]): Promise<boolean> {
     const form = new FormData();
     form.append('from', `Smartt from Eats <mailgun@${this.options.domain}>`);
     form.append('to', `${to}`);
@@ -16,13 +16,14 @@ export class MailService {
     form.append('template', template);
     emailVars.forEach((e) => form.append(`v:${e.key}`, e.value));
     try {
-      await got(`https://api.mailgun.net/v3/${this.options.domain}/messages`, {
-        method: 'POST',
+      await got.post(`https://api.mailgun.net/v3/${this.options.domain}/messages`, {
         headers: { Authorization: `Basic ${Buffer.from(`api:${this.options.apiKey}`).toString('base64')}` },
         body: form,
       });
+      return true;
     } catch (error) {
-      console.log(error.response.body);
+      // console.log(error.response.body);
+      return false;
     }
   }
 
