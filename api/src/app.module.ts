@@ -17,7 +17,7 @@ import { MailModule } from './mail/mail.module';
       envFilePath: process.env.NODE_ENV === 'dev' ? '.env.dev' : '.env.test',
       ignoreEnvFile: process.env.NODE_ENV === 'prod',
       validationSchema: Joi.object({
-        NODE_ENV: Joi.string().valid('dev', 'prod').required(),
+        NODE_ENV: Joi.string().valid('dev', 'prod', 'test').required(),
         DB_HOST: Joi.string().required(),
         DB_PORT: Joi.string().required(),
         DB_DATABASE: Joi.string().required(),
@@ -37,7 +37,7 @@ import { MailModule } from './mail/mail.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       synchronize: process.env.NODE_ENV !== 'prod',
-      logging: false,
+      logging: process.env.NODE_ENV !== 'prod' && process.env.NODE_ENV !== 'test',
       entities: [User, Verification],
     }),
     GraphQLModule.forRoot({
