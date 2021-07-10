@@ -43,12 +43,10 @@ export class OrderService {
             error: 'Dish not found.',
           };
         }
-        console.log(`Dish price: ${dish.price}`);
         let dishFinalPrice = dish.price;
         for (const itemOption of item.options) {
           const dishOption = dish.options.find((dishOption) => dishOption.name === itemOption.name);
           if (dishOption) {
-            console.log({ dishOption: dishOption });
             if (dishOption.extra) {
               dishFinalPrice = dishFinalPrice + dishOption.extra;
             } else {
@@ -56,7 +54,6 @@ export class OrderService {
                 (optionChoice) => optionChoice.name === itemOption.choice,
               );
               if (dishOptionChoice) {
-                console.log({ dishOptionChoice: dishOptionChoice });
                 if (dishOptionChoice.extra) {
                   dishFinalPrice = dishFinalPrice + dishOptionChoice.extra;
                 }
@@ -72,7 +69,7 @@ export class OrderService {
           }),
         );
       }
-      const order = await this.orders.save(
+      await this.orders.save(
         this.orders.create({
           customer,
           restaurant,
@@ -80,7 +77,6 @@ export class OrderService {
           items: orderItems,
         }),
       );
-      console.log(order);
       return { ok: true };
     } catch (error) {
       return {
