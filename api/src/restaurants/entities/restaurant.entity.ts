@@ -28,7 +28,7 @@ export class Restaurant extends CoreEntity {
   address: string;
 
   @Field(() => Category, { nullable: true })
-  @ManyToOne(() => Category, (category) => category.restaurants, { nullable: true, onDelete: 'SET NULL' })
+  @ManyToOne(() => Category, (category) => category.restaurants, { nullable: true, onDelete: 'SET NULL', eager: true })
   category: Category;
 
   @Field(() => User)
