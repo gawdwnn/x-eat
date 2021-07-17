@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 import { Button } from "../components/button";
 import { LoginMutation, LoginMutationVariables } from "../__generated__/LoginMutation";
 import nuberLogo from "../images/logo.svg";
-import { EmailPattern } from "../utils/constants";
-import { isLoggedInVar } from "../apollo";
+import { EmailPattern, LOCALSTORAGE_TOKEN } from "../utils/constants";
+import { authTokenVar, isLoggedInVar } from "../apollo";
 
 const LOGIN_MUTATION = gql`
   mutation LoginMutation($loginInput: LoginInput!) {
@@ -34,8 +34,9 @@ export const Login = () => {
     const {
       login: { ok, token },
     } = data;
-    if (ok) {
-      console.log(token);
+    if (ok && token) {
+      localStorage.setItem(LOCALSTORAGE_TOKEN, token);
+      authTokenVar(token);
       isLoggedInVar(true);
     }
   };
@@ -64,7 +65,7 @@ export const Login = () => {
   return (
     <div className="h-screen flex items-center flex-col mt-10 lg:mt-28">
       <Helmet>
-        <title>Login | Nuber Eats</title>
+        <title>Login | Eats</title>
       </Helmet>
       <div className="w-full max-w-screen-sm flex flex-col px-5 items-center">
         <img src={nuberLogo} alt="title" className="w-52 mb-10" />
