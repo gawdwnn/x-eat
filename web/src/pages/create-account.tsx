@@ -45,7 +45,7 @@ export const CreateAccount = () => {
     } = data;
     if (ok) {
       alert("Account Created! Log in now!");
-      history.push("/login");
+      history.push("/");
     }
   };
 
@@ -116,7 +116,7 @@ export const CreateAccount = () => {
         </form>
         <div>
           Already have an account?{" "}
-          <Link to="/login" className="text-lime-600 hover:underline">
+          <Link to="/" className="text-lime-600 hover:underline">
             Log in now
           </Link>
         </div>
