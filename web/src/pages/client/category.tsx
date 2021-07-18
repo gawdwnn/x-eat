@@ -1,5 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
-import React, { useEffect } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import { CATEGORY_FRAGMENT, RESTAURANT_FRAGMENT } from "../../fragments";
 import { category, categoryVariables } from "../../__generated__/category";
@@ -39,6 +39,6 @@ export const Category = () => {
     },
   });
 
-  // console.log(data);
+  console.log(data, loading);
   return <h1>Category</h1>;
 };
