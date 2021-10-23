@@ -19,6 +19,7 @@
     "apollo": "^2.33.4",
     "autoprefixer": "^10.3.0",
     "graphql": "^15.5.1",
+    "mock-apollo-client": "^1.2.0",
     "postcss": "^8.3.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -35,7 +36,8 @@
   "scripts": {
     "start": "yarn apollo:codegen & yarn tailwind:build & react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --verbose",
+    "test:coverage": "npm test -- --coverage --watchAll=false",
     "eject": "react-scripts eject",
     "tailwind:build": "tailwind build -i ./src/styles/tailwind.css -o ./src/styles/styles.css",
     "apollo:codegen": "rimraf src/__generated__ && apollo client:codegen src/__generated__ --target=typescript --outputFlat"
@@ -56,6 +58,13 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "./src/components/**/*.tsx",
+      "./src/pages/**/*.tsx",
+      "./src/routers/**/*.tsx"
     ]
   }
 }

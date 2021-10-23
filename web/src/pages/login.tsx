@@ -9,7 +9,7 @@ import nuberLogo from "../images/logo.svg";
 import { EmailPattern, LOCALSTORAGE_TOKEN } from "../utils/constants";
 import { authTokenVar, isLoggedInVar } from "../apollo";
 
-const LOGIN_MUTATION = gql`
+export const LOGIN_MUTATION = gql`
   mutation LoginMutation($loginInput: LoginInput!) {
     login(input: $loginInput) {
       ok
@@ -34,6 +34,7 @@ export const Login = () => {
     const {
       login: { ok, token },
     } = data;
+
     if (ok && token) {
       localStorage.setItem(LOCALSTORAGE_TOKEN, token);
       authTokenVar(token);
@@ -85,16 +86,13 @@ export const Login = () => {
             <FormError errorMessage={"Please enter a valid email"} />
           )}
           <input
-            {...register("password", { required: "Password is required", minLength: 5 })}
+            {...register("password", { required: "Password is required" })}
             placeholder="Password"
             required
             className="input"
           />
           {errors.password?.message && (
             <FormError errorMessage={errors.password?.message} />
-          )}
-          {errors.password?.type === "minLength" && (
-            <FormError errorMessage="Password must be more than 5 chars." />
           )}
           <Button canClick={isValid} loading={loading} actionText={"Log in"} />
           {loginMutationResult?.login.error && (

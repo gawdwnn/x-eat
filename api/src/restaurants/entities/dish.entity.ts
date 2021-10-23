@@ -9,6 +9,7 @@ import { Restaurant } from './restaurant.entity';
 export class DishChoice {
   @Field(() => String)
   name: string;
+
   @Field(() => Int, { nullable: true })
   extra?: number;
 }
