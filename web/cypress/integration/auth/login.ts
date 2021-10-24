@@ -19,10 +19,7 @@ describe("Log In", () => {
   });
 
   it("can fill out the form and log in", () => {
-    user.visit("/");
-    user.findByPlaceholderText(/email/i).type("until@gmail.com");
-    user.findByPlaceholderText(/password/i).type("121212");
-    user.findByRole("button").should("not.have.class", "pointer-events-none").click();
-    user.window().its("localStorage.eats-token").should("be.a", "string");
+    // @ts-ignore
+    user.login("until@gmail.com", "121212");
   });
 });

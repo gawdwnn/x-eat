@@ -39,10 +39,7 @@ describe("Create Account", () => {
     user.findByPlaceholderText(/password/i).type("121212");
     user.findByRole("button").click();
     user.wait(1000);
-    user.title().should("eq", "Login | Eats");
-    user.findByPlaceholderText(/email/i).type("until@gmail.com");
-    user.findByPlaceholderText(/password/i).type("121212");
-    user.findByRole("button").click();
-    user.window().its("localStorage.eats-token").should("be.a", "string");
+    // @ts-ignore
+    user.login("until@gmail.com", "121212");
   });
 });
