@@ -53,28 +53,30 @@ export const LoggedInRouter = () => {
   return (
     <Router>
       <Header />
-      <Switch>
-        {data.me.role === "Client" &&
-          clientRoutes.map((route) => (
-            <Route exact key={route.path} path={route.path}>
+      <div className="px-10">
+        <Switch>
+          {data.me.role === "Client" &&
+            clientRoutes.map((route) => (
+              <Route exact key={route.path} path={route.path}>
+                {route.component}
+              </Route>
+            ))}
+          {data.me.role === "Owner" &&
+            restaurantRoutes.map((route) => (
+              <Route exact key={route.path} path={route.path}>
+                {route.component}
+              </Route>
+            ))}
+          {commonRoutes.map((route) => (
+            <Route key={route.path} path={route.path}>
               {route.component}
             </Route>
           ))}
-        {data.me.role === "Owner" &&
-          restaurantRoutes.map((route) => (
-            <Route exact key={route.path} path={route.path}>
-              {route.component}
-            </Route>
-          ))}
-        {commonRoutes.map((route) => (
-          <Route key={route.path} path={route.path}>
-            {route.component}
+          <Route>
+            <NotFound />
           </Route>
-        ))}
-        <Route>
-          <NotFound />
-        </Route>
-      </Switch>
+        </Switch>
+      </div>
     </Router>
   );
 };

@@ -2,27 +2,20 @@ import { Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express';
 import * as AWS from 'aws-sdk';
 
-const BUCKET_NAME = 'eatsbucketSQKOU';
-console.log(process.env.AWS_ACCESS_KEY_ID);
 @Controller('uploads')
 export class UploadsController {
   @Post('')
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(@UploadedFile() file) {
+    const BUCKET_NAME = process.env.BUCKET_NAME;
     AWS.config.update({
       credentials: {
         accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: 'B6bTDjKyUt92iWXKw6TQYmWyfwKCxFLy613MeUvr',
+        secretAccessKey: process.env.AWS_SECRET_KEY_ID,
       },
     });
     try {
       const objectName = `${Date.now() + file.originalname}`;
-      const upload = await new AWS.S3()
-        .createBucket({
-          Bucket: '',
-        })
-        .promise();
-      console.log({ upload });
       await new AWS.S3()
         .putObject({
           Body: file.buffer,
@@ -34,6 +27,7 @@ export class UploadsController {
       const url = `https://${BUCKET_NAME}.s3.amazonaws.com/${objectName}`;
       return { url };
     } catch (e) {
+      console.log(e);
       return null;
     }
   }
