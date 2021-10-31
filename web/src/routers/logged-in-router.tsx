@@ -12,6 +12,7 @@ import { Restaurant } from "../pages/client/restaurant";
 import { MyRestaurants } from "../pages/owner/my-restaurants";
 import { AddRestaurant } from "../pages/owner/add-restaurants";
 import { MyRestaurant } from "../pages/owner/my-restaurant";
+import { AddDish } from "../pages/owner/add-dish";
 
 const clientRoutes = [
   {
@@ -41,6 +42,7 @@ const restaurantRoutes = [
   { path: "/", component: <MyRestaurants /> },
   { path: "/add-restaurant", component: <AddRestaurant /> },
   { path: "/restaurants/:id", component: <MyRestaurant /> },
+  { path: "/restaurants/:restaurantId/add-dish", component: <AddDish /> },
 ];
 
 export const LoggedInRouter = () => {
@@ -55,30 +57,28 @@ export const LoggedInRouter = () => {
   return (
     <Router>
       <Header />
-      <div className="px-10">
-        <Switch>
-          {data.me.role === "Client" &&
-            clientRoutes.map((route) => (
-              <Route exact key={route.path} path={route.path}>
-                {route.component}
-              </Route>
-            ))}
-          {data.me.role === "Owner" &&
-            restaurantRoutes.map((route) => (
-              <Route exact key={route.path} path={route.path}>
-                {route.component}
-              </Route>
-            ))}
-          {commonRoutes.map((route) => (
-            <Route key={route.path} path={route.path}>
+      <Switch>
+        {data.me.role === "Client" &&
+          clientRoutes.map((route) => (
+            <Route exact key={route.path} path={route.path}>
               {route.component}
             </Route>
           ))}
-          <Route>
-            <NotFound />
+        {data.me.role === "Owner" &&
+          restaurantRoutes.map((route) => (
+            <Route exact key={route.path} path={route.path}>
+              {route.component}
+            </Route>
+          ))}
+        {commonRoutes.map((route) => (
+          <Route key={route.path} path={route.path}>
+            {route.component}
           </Route>
-        </Switch>
-      </div>
+        ))}
+        <Route>
+          <NotFound />
+        </Route>
+      </Switch>
     </Router>
   );
 };

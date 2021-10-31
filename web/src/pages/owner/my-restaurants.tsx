@@ -26,7 +26,7 @@ export const MyRestaurants = () => {
       <Helmet>
         <title>My Restaurants | Eats</title>
       </Helmet>
-      <div className="max-w-screen-2xl mx-auto mt-10">
+      <div className="max-w-screen-2xl mx-auto p-10">
         <h2 className="text-2xl font-medium mb-5">My Restaurants</h2>
         {data?.myRestaurants.ok && data.myRestaurants.restaurants.length === 0 ? (
           <>

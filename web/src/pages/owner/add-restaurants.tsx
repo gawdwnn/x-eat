@@ -1,5 +1,5 @@
 import { gql, useApolloClient, useMutation } from "@apollo/client";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import { Button } from "../../components/button";
@@ -111,7 +111,7 @@ export const AddRestaurant = () => {
   };
 
   return (
-    <div className="container flex flex-col items-center mt-50">
+    <div className="container flex flex-col items-center mt-40">
       <Helmet>
         <title>Add Restaurant | Eats</title>
       </Helmet>
