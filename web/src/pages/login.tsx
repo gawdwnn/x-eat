@@ -100,7 +100,7 @@ export const Login = () => {
           )}
         </form>
         <div>
-          New to Nuber?{" "}
+          New to eats?{" "}
           <Link to="/create-account" className="text-lime-600 hover:underline">
             Create an Account
           </Link>

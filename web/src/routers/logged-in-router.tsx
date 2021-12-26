@@ -13,6 +13,7 @@ import { MyRestaurants } from "../pages/owner/my-restaurants";
 import { AddRestaurant } from "../pages/owner/add-restaurants";
 import { MyRestaurant } from "../pages/owner/my-restaurant";
 import { AddDish } from "../pages/owner/add-dish";
+import { Order } from "../pages/order";
 
 const clientRoutes = [
   {
@@ -36,6 +37,7 @@ const clientRoutes = [
 const commonRoutes = [
   { path: "/confirm", component: <ConfirmEmail /> },
   { path: "/edit-profile", component: <EditProfile /> },
+  { path: "/orders/:id", component: <Order /> },
 ];
 
 const restaurantRoutes = [

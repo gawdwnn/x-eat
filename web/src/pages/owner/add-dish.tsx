@@ -59,7 +59,7 @@ export const AddDish = () => {
 
   const onSubmit = () => {
     const { name, price, description, ...rest } = getValues();
-    console.log({ rest });
+    // console.log({ rest });
     const optionObjects = optionsNumber.map((id) => ({
       name: rest[`${id}-optionName`],
       extra: +rest[`${id}-optionExtra`],
